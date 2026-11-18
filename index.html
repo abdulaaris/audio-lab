@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#10131d">
+  <meta name="description" content="Offline audio analysis and compatibility checker. Files stay on your device.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Audio Lab — Offline Analyzer</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brandmark">♫</div>
+    <div><p class="eyebrow">OFFLINE AUDIO TOOLS</p><h1>Audio Lab</h1></div>
+    <span id="offlineBadge" class="pill">Checking…</span>
+  </header>
+  <main>
+    <section class="hero panel">
+      <p class="eyebrow">YOUR AUDIO STAYS ON THIS DEVICE</p>
+      <h2>Understand your audio.</h2>
+      <p>Inspect file details, preview sound, view a waveform and export a WAV copy for compatibility testing.</p>
+      <label class="upload" for="audioFile"><span class="uploadIcon">＋</span><span><strong>Choose an audio file</strong><small>MP3, WAV, M4A, OGG or another format supported by your browser</small></span></label>
+      <input id="audioFile" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac,.aac" hidden>
+      <p id="fileStatus" class="muted" aria-live="polite">No file selected yet.</p>
+    </section>
+
+    <section id="playerPanel" class="panel" hidden>
+      <div class="sectionHead"><div><p class="eyebrow">NOW LOADED</p><h2 id="fileName">Audio file</h2></div><button id="clearBtn" class="ghost">Clear</button></div>
+      <audio id="audioPlayer" controls preload="metadata"></audio>
+      <canvas id="waveform" aria-label="Audio waveform"></canvas>
+      <p id="waveStatus" class="muted">Waveform appears after analysis.</p>
+    </section>
+
+    <section class="panel">
+      <p class="eyebrow">FILE INSPECTION</p><h2>Audio details</h2>
+      <div class="metrics">
+        <div class="metric"><span>File size</span><strong id="fileSize">—</strong></div>
+        <div class="metric"><span>Duration</span><strong id="duration">—</strong></div>
+        <div class="metric"><span>File type</span><strong id="mimeType">—</strong></div>
+        <div class="metric"><span>Sample rate</span><strong id="sampleRate">—</strong></div>
+        <div class="metric"><span>Channels</span><strong id="channels">—</strong></div>
+        <div class="metric"><span>Decoded audio</span><strong id="decodedSize">—</strong></div>
+      </div>
+      <p id="compatibility" class="result muted">Choose a file to run basic compatibility checks.</p>
+      <button id="analyzeBtn" class="primary" disabled>Analyze audio locally</button>
+      <button id="exportBtn" class="secondary" disabled>Export decoded audio as WAV</button>
+      <p class="footnote">WAV export may create a much larger file. Analysis and conversion run in your browser; no upload is performed.</p>
+    </section>
+
+    <section class="panel">
+      <p class="eyebrow">WHAT THIS VERSION DOES</p><h2>Compatibility checklist</h2>
+      <ul class="checklist"><li>✓ Checks whether the browser can decode the audio</li><li>✓ Reads duration and local file metadata</li><li>✓ Draws a waveform after decoding</li><li>✓ Exports decoded audio as uncompressed WAV</li><li>— Does not remove copyright fingerprints or guarantee acceptance by third-party AI tools</li></ul>
+    </section>
+    <footer>Audio Lab · Local-first prototype · v0.1</footer>
+  </main>
+  <script src="app.js"></script>
+  <script>if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('./sw.js').catch(()=>{});</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "Audio Lab — Offline Analyzer",
+  "short_name": "Audio Lab",
+  "description": "Local audio analysis and compatibility checker",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0e16",
+  "theme_color": "#10131d",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
