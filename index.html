@@ -20,7 +20,7 @@
     <section class="hero panel">
       <p class="eyebrow">YOUR AUDIO STAYS ON THIS DEVICE</p>
       <h2>Understand your audio.</h2>
-      <p>Inspect file details, preview sound, view a waveform and export a WAV copy for compatibility testing.</p>
+      <p>Inspect audio properties, view a waveform, estimate peak/RMS levels and export a compressed MP3 copy locally.</p>
       <label class="upload" for="audioFile"><span class="uploadIcon">＋</span><span><strong>Choose an audio file</strong><small>MP3, WAV, M4A, OGG or another format supported by your browser</small></span></label>
       <input id="audioFile" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac,.aac" hidden>
       <p id="fileStatus" class="muted" aria-live="polite">No file selected yet.</p>
@@ -41,20 +41,26 @@
         <div class="metric"><span>File type</span><strong id="mimeType">—</strong></div>
         <div class="metric"><span>Sample rate</span><strong id="sampleRate">—</strong></div>
         <div class="metric"><span>Channels</span><strong id="channels">—</strong></div>
-        <div class="metric"><span>Decoded audio</span><strong id="decodedSize">—</strong></div>
+        <div class="metric"><span>Decoded PCM size</span><strong id="decodedSize">—</strong></div>
+        <div class="metric"><span>Estimated source bitrate</span><strong id="bitrate">—</strong></div>
+        <div class="metric"><span>Peak level</span><strong id="peakLevel">—</strong></div>
+        <div class="metric"><span>RMS level</span><strong id="rmsLevel">—</strong></div>
+        <div class="metric"><span>Clipped samples</span><strong id="clipping">—</strong></div>
       </div>
       <p id="compatibility" class="result muted">Choose a file to run basic compatibility checks.</p>
       <button id="analyzeBtn" class="primary" disabled>Analyze audio locally</button>
-      <button id="exportBtn" class="secondary" disabled>Export decoded audio as WAV</button>
-      <p class="footnote">WAV export may create a much larger file. Analysis and conversion run in your browser; no upload is performed.</p>
+      <button id="exportBtn" class="secondary" disabled>Export compressed MP3 (128 kbps)</button>
+      <button id="exportWavBtn" class="ghost" disabled>Export WAV (large file)</button>
+      <p class="footnote">MP3 encoding runs locally in your browser after the encoder library is cached. Analysis does not upload your audio. RMS is a simple level estimate, not a certified LUFS measurement.</p>
     </section>
 
     <section class="panel">
       <p class="eyebrow">WHAT THIS VERSION DOES</p><h2>Compatibility checklist</h2>
-      <ul class="checklist"><li>✓ Checks whether the browser can decode the audio</li><li>✓ Reads duration and local file metadata</li><li>✓ Draws a waveform after decoding</li><li>✓ Exports decoded audio as uncompressed WAV</li><li>— Does not remove copyright fingerprints or guarantee acceptance by third-party AI tools</li></ul>
+      <ul class="checklist"><li>✓ Checks whether the browser can decode the audio</li><li>✓ Reads duration and local file metadata</li><li>✓ Draws a waveform after decoding</li><li>✓ Estimates peak, RMS level and source bitrate</li><li>✓ Exports compressed MP3 at 128 kbps when the local encoder is available</li><li>✓ Optional WAV export for compatibility testing</li><li>— Does not remove copyright fingerprints or guarantee acceptance by third-party AI tools</li></ul>
     </section>
-    <footer>Audio Lab · Local-first prototype · v0.1</footer>
+    <footer>Audio Lab · Local-first prototype · v0.2</footer>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
   <script src="app.js"></script>
   <script>if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('./sw.js').catch(()=>{});</script>
 </body>

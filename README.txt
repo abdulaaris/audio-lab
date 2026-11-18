@@ -1,4 +1,4 @@
-AUDIO LAB — OFFLINE ANALYZER PWA v0.1
+AUDIO LAB — OFFLINE ANALYZER PWA v0.2
 
 Files:
 - index.html: app screen
